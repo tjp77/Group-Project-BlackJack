@@ -1,12 +1,19 @@
 # Group-Project-BlackJack
 
 Goal is to get to 21
+
 2 players (user against dealer)
+
 Start with two cards
+
 start with 1000 chips
+
   default bet is 100 chips
+  
   if win, increase 200
+  
   if win, increase to 500
+  
   if win, increase to 1000
     if lose at any time, go back to 100 chip cap
 bet before you recieve hand
