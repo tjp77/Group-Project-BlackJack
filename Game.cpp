@@ -55,7 +55,6 @@ void Game::Play()
         winnerindex = 0;
 
 
-        /// --------- If someone other then me actually works on this, remove this line.
 
 
         if (winnerindex != 0)
