@@ -28,8 +28,6 @@ class Game  /// Break up more somehow, game getting long
     std::vector<Player> players;
     std::vector<Card> GameDeck;
 
-    bool CheckForGameOver();
-
     void SetupPlayer();
     void GetPlayerBet(int _playerindex);
 
