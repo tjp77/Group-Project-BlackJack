@@ -18,9 +18,9 @@ class Game  /// Break up more somehow, game getting long
     private:
 
     int SingleDeckSize = 52;
-    int numbplayers; /// Dealer + actual players, let dealer always be 'player' zero
+    int numbplayers; // Dealer + actual players, let dealer always be 'player' zero
     int numbdecks;
-    int maxbet = 100; ///increase in game as needed
+    int maxbet = 100; //increase in game as needed
 
     bool GameOver = false;
 
@@ -28,7 +28,7 @@ class Game  /// Break up more somehow, game getting long
     std::vector<Player> players;
     std::vector<Card> GameDeck;
 
-    bool CheckForGameOver(); /// Same as above
+    bool CheckForGameOver();
 
     void SetupPlayer();
     void GetPlayerBet(int _playerindex);

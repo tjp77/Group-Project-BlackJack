@@ -55,7 +55,7 @@ void Game::Play()
         winnerindex = 0;
 
 
-
+        /// --------- If someone other then me actually works on this, remove this line.
 
 
         if (winnerindex != 0)
@@ -65,9 +65,7 @@ void Game::Play()
                  << "Chips won: " << (players[winnerindex].betamount * 2) << endl;
         }
         else
-        {
-            cout << "Dealer wins!" << endl;
-        }
+        { cout << "Dealer wins!" << endl; }
 
 
         cout << "\nRound end\n";
