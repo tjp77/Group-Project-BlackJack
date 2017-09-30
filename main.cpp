@@ -13,8 +13,6 @@ int main()
 {
     Instructions();
 
-    bool playagain = false;
-
     do
     {
         Game GameSession(1);
@@ -23,11 +21,10 @@ int main()
 
         cout << "Game Over." << endl;
 
-    }while (playagain == true);
+    }while (GameSession.GameOver == False);
 
 
     return 0;
-
 }//
 
 
