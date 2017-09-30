@@ -59,7 +59,7 @@ void Game::Play()
         /// before having the order worked out.
 
 
-
+        /// ----------- If someone other then me actually works on this, remove this line.
 
         for (int i = 0; i < players.size(); ++i)
         {
