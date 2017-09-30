@@ -8,7 +8,6 @@
 #include <random>
 #include <algorithm>
 
-
 void Shuffle(std::vector<Card> &_deck);
 void DeckBuild(std::vector<Card> &_deck);
 
