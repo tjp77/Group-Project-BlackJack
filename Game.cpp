@@ -2,7 +2,7 @@
 #include "TestFunctions.h"
 
 #include <iostream>
-using std::cout; 
+using std::cout;
 using std::endl;
 
 
@@ -19,14 +19,14 @@ Game::Game(int _numbplayers)
 void Game::Play()
 {
     // --- SETUP ---
-    /// ---------------------------- can be moved out to own function, stop play from being so cluttered
+    /// ---------------------------- move setup out
     char input;
     int standingplayers = 0;
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::srand(seed);
 
-    players.resize(numbplayers); //Plus one for dealer
+    players.resize(numbplayers + 1); //Plus one for dealer
 
     SetupPlayer();
 
@@ -91,7 +91,7 @@ void Game::Play()
         players[winnerindex].chips += (players[winnerindex].betamount * 2);
 
 
-        cout << "\nRound end\n";  /// ----- Bellow here can be moved out also.
+        cout << "\nRound end\n";  /// ----- Bellow here can be moved out.
 
         // Ask each player if they want to play another round.
         for (int i = 1; i < players.size(); ++i)
@@ -100,7 +100,7 @@ void Game::Play()
             std::cin >> input;
 
             if (std::cin.fail()
-              || !(input == 'y'
+            || !(input == 'y'
               || input == 'Y'
               || input == 'n'
               || input == 'N'))
@@ -223,7 +223,10 @@ void Game::PlayerChoice(int _playerindex)
       if (players[0].handtotal >= 17)
       { players[0].isstanding = true; }
       else
-      { DealCards(1, 0); }
+      {
+          DealCards(1, 0);
+          players[0].handtotal = GetHandTotal(0);
+      }
   }
   else
   {
@@ -246,7 +249,10 @@ void Game::PlayerChoice(int _playerindex)
       if (input == 1)
       { players[_playerindex].isstanding = true; }
       else
-      { DealCards(1, _playerindex); }
+      {
+          DealCards(1, _playerindex);
+          players[_playerindex].handtotal = GetHandTotal(_playerindex);
+      }
 
   }// outer else block
 
