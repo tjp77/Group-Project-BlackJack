@@ -1,4 +1,18 @@
-# Group-Project-BlackJack
+
+~tjp77 -TODO/Notes:
+
+"Ties between players are irrelevant, as every player plays against the dealer only and not each other. If your hand is better than the dealers you win your bet, if it is worse you lose your bet"
+
+comparing hands function
+
+double down
+
+'blackjack' 21 and non blackjack 21?
+"If both the dealer and player have a non-blackjack 21, it is considered a push. You neither win nor lose.You keep your original bet."
+
+
+
+# Group-Project-BlackJack, outline by Brian
 
 Goal is to get to 21
 
