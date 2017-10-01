@@ -8,7 +8,7 @@
 'blackjack' 21 and non blackjack 21?
 "If both the dealer and player have a non-blackjack 21, it is considered a push. You neither win nor lose.You keep your original bet."
 
-so edit cause not only one winner
+so edit cause not only one winner. variable in player class, if beat dealer, then all that have get payout
 
 
 Also add: double down option for player
