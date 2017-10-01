@@ -24,6 +24,7 @@ class Game  /// Break up more somehow, game getting long
     int numbplayers; // Dealer + actual players, let dealer always be 'player' zero
     int numbdecks;
     int maxbet = 100; //increase in game as needed
+    int standingplayers = 0;
 
     bool GameOver = false;
 

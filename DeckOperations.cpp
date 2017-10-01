@@ -33,7 +33,10 @@ void PrintDeck(Card const _deck[], int _numbcards, bool _isdealer)
 
     // Skip over showing dealer's first card.
     if (_isdealer)
-    { ++i; }
+    {
+        cout << "Face Down Card." << endl;
+        ++i;
+    }
 
     for (; i < _numbcards; ++i)  /// Depending on how we want to print out cards either add a space or new line after
     { _deck[i].PrintCardName(); }
