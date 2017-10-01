@@ -17,7 +17,7 @@ int main()
 
     do
     {
-        Game GameSession(2);
+        Game GameSession(1);
 
         GameSession.Play();
 
