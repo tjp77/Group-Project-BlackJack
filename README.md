@@ -9,6 +9,7 @@
 "If both the dealer and player have a non-blackjack 21, it is considered a push. You neither win nor lose.You keep your original bet."
 
 so edit cause not only one winner. variable in player class, if beat dealer, then all that have get payout
+or just shove payout into card compares, one line of code in that stop either way
 
 
 Also add: double down option for player
