@@ -19,7 +19,7 @@ Game::Game(int _numbplayers)
 void Game::Play()
 {
     // --- SETUP ---
-    /// ---------------------------- move setup out
+    /// ---------------------------- can be moved out to own function, stop play from being so cluttered
     char input;
     int standingplayers = 0;
 
@@ -91,7 +91,7 @@ void Game::Play()
         players[winnerindex].chips += (players[winnerindex].betamount * 2);
 
 
-        cout << "\nRound end\n";  /// ----- Bellow here can be moved out.
+        cout << "\nRound end\n";  /// ----- Bellow here can be moved out also.
 
         // Ask each player if they want to play another round.
         for (int i = 1; i < players.size(); ++i)
