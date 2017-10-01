@@ -68,7 +68,7 @@ void Game::Play()
                     players[i].isoutofround = true;
                 }
                 else
-                { PlayerChoice(i); } ///-----------handle payout for blackjack
+                { PlayerChoice(i); }   ///-----------handle payout for blackjack
             }
         }
 
@@ -96,7 +96,7 @@ void Game::Play()
         // Ask each player if they want to play another round.
         for (int i = 1; i < players.size(); ++i)
         {
-            cout << "Player " << i << ", would you like to play another round? (y/n)" << endl;
+            cout << "Player " << players[i].ID << ", would you like to play another round? (y/n)" << endl;
             std::cin >> input;
 
             if (std::cin.fail()
@@ -136,7 +136,7 @@ void Game::GetPlayerBet(int _playerindex)
 {
     while (true)
     {
-        cout << "Enter a bet amount from " << 0 << " to " << maxbet << ":" << endl;
+        cout << "Player " << players[_playerindex].ID << ", enter a bet amount from " << 0 << " to " << maxbet << ":" << endl;
         std::cin >> players[_playerindex].betamount;
         cout << endl;
 
@@ -162,7 +162,7 @@ void Game::DealCards(int _numbofcards, int _playerindex) /// Move to deck option
 {
     for (int i = 0; i < _numbofcards; ++i)
     {
-        cout << "Cards dealt to player" << i << endl;
+        cout << "Cards dealt to player" << players[_playerindex].ID << endl;
 
         players[_playerindex].Hand[players[_playerindex].numbcards] = GameDeck.back();
         players[_playerindex].numbcards++;
