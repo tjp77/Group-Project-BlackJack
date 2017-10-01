@@ -21,7 +21,7 @@ void Game::Play()
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::srand(seed);
 
-    players.resize(numbplayers); //Plus one for dealer
+    players.resize(numbplayers);
 
     SetupPlayer();
 
@@ -75,6 +75,7 @@ void Game::Play()
         // need this whole part in loop case people want to keep drawing, end when all have chose to stand.
         // bring in code to determine highest from war
 
+        CompareCards();
 
         if (winnerindex != 0)
         {
@@ -120,7 +121,14 @@ void Game::Play()
             standingplayers = 0;
             winnerindex = 0;
 
-            /// clear out player hands, reset # cards they have, isout0fround/isstanding
+            maxbet *= 2;
+
+            for (int i = 0; i < players.size(); ++i)
+            {
+                players[i].isoutofround = false;
+                players[i].isstanding = false;
+                players[i].numbcards = 0;
+            }
         }
 
 
@@ -167,7 +175,7 @@ void Game::GetPlayerBet(int _playerindex)
 
 
 
-void Game::DealCards(int _numbofcards, int _playerindex) /// Move to deck options?
+void Game::DealCards(int _numbofcards, int _playerindex) /// Move dealing stuff to deck options to break up more?
 {
     for (int i = 0; i < _numbofcards; ++i)
     {
@@ -240,7 +248,7 @@ void Game::PlayerChoice(int _playerindex)
           DealCards(1, 0);
 
           cout << "Dealer draws. New hand:" << endl;
-          PrintDeck(players[0].Hand, players[0].numbcards);
+          PrintDeck(players[0].Hand, players[0].numbcards, true);
 
           players[0].handtotal = GetHandTotal(0);
           cout << "Hand Total is: " << players[0].handtotal << endl << endl;
@@ -285,4 +293,18 @@ void Game::PlayerChoice(int _playerindex)
   }// outer else block
 
 }//
+
+
+// Return # corresponding to index of winning player.
+int Game::CompareCards()
+{
+    int highesthandtotal = 0;
+
+    for (int i = 0; i < players.size() && players[i].isoutofround == false; ++i)
+    {
+
+    }
+
+}//
+
 
