@@ -100,7 +100,7 @@ void Game::Play()
             std::cin >> input;
 
             if (std::cin.fail()
-            || !(input == 'y'
+              || !(input == 'y'
               || input == 'Y'
               || input == 'n'
               || input == 'N'))
