@@ -14,7 +14,7 @@ void PrintPlayerhands(std::vector<Player> _players)
     for (int i = 0; i < _players.size(); ++i)
     {
         cout << "Player " << i << " ";
-        PrintDeck(_players[i].Hand);
+       // PrintDeck(_players[i].Hand, );
     }
 
     cout << endl;

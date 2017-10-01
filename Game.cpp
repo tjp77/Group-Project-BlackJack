@@ -19,8 +19,9 @@ Game::Game(int _numbplayers)
 void Game::Play()
 {
     // --- SETUP ---
-    /// ---------------------------- move setup to own function
+    /// ---------------------------- move setup out
     char input;
+    int standingplayers = 0;
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::srand(seed);
@@ -38,43 +39,48 @@ void Game::Play()
 
     while (!GameOver)
     {
-        ++roundnumber;
+        ++roundnumber;    /// at end of each round reset things like player is out of round, hand's, numbcards, etc.
+        winnerindex = 0;
+        standingplayers = 0;
 
         cout << "\nRound Start " << roundnumber << endl;
 
-        if (CheckForGameOver())
-            { break; }
-
-
-        for (int i = 1; i < players.size(); ++i)
-        {
-            GetPlayerBet(i);
-        }
+        for (int i = 1; i < players.size() && players[i].isoutofround == false; ++i)
+        { GetPlayerBet(i); }
 
         DealToAll(2);
 
-        winnerindex = 0;
-
-        /// may need to move some stuff in here around. Went ahead and wrote stuff I knew was needed at some point
-        /// before having the order worked out.
-
+        for (int i = 0; i < players.size(); ++i)
+        { players[i].handtotal = GetHandTotal(i); }
 
         /// ----------- If someone other then me actually works on this, remove this line.
 
-        for (int i = 0; i < players.size(); ++i)
+        // Players draw or stand until all standing or bust
+        while (standingplayers <= players.size())
         {
-            if (GetHandTotal(players[i].Hand)  > 21) // may need moved
+            for (int i = 0; i < players.size() && players[i].isoutofround == false && players[i].isstanding == false; ++i)
             {
-                // Burst, handle that
+                cout << "Player " << players[i].ID << "'s hand:" << endl;
+                PrintDeck(players[i].Hand, players[i].numbcards);
 
+                if (players[i].handtotal  > 21)
+                {
+                    players[i].isoutofround = true;
+                }
+                else
+                { PlayerChoice(i); }
             }
         }
+
+        // determine who has highest hand total. store hand total in variable to get with funct after draws.
+        // need this whole part in loop case people want to keep drawing, end when all have chose to stand.
+        // bring in code to determine highest from war
 
 
         if (winnerindex != 0)
         {
             // payout say who won
-            cout << "Player " << winnerindex << " wins the round!" << endl
+            cout << "Player " << players[winnerindex].ID << " wins the round!" << endl
                  << "Chips won: " << (players[winnerindex].betamount * 2) << endl;
         }
         else
@@ -85,15 +91,23 @@ void Game::Play()
         players[winnerindex].chips += (players[winnerindex].betamount * 2);
 
 
-        cout << "\nRound end\n";
+        cout << "\nRound end\n";  /// ----- Bellow here can be moved out.
 
         // Ask each player if they want to play another round.
-        for (int i = 1; i < players.size(); ++i)   /// ----------New funct?
+        for (int i = 1; i < players.size(); ++i)
         {
-            cout << "Player " << i << ", would you like to play another round?" << endl;
-            cin >> input;
+            cout << "Player " << i << ", would you like to play another round? (y/n)" << endl;
+            std::cin >> input;
 
-            if (cin.fail()) { --i; }
+            if (std::cin.fail()
+            || !(input == 'y'
+              || input == 'Y'
+              || input == 'n'
+              || input == 'N'))
+            { --i; }
+
+            if (input == 'n' || input == 'N')
+            { players.erase(players.begin() + i); }
         }
 
         // All players other than dealer out of game, end.
@@ -109,14 +123,11 @@ void Game::Play()
 
 
 
-void Game::SetupPlayer()  /// Add to
+void Game::SetupPlayer()  /// Add to/remove
 {
     for (int i = 0; i < numbplayers; ++i)
     {
         players[i].ID = i;
-
-
-
     }
 }//
 
@@ -147,11 +158,15 @@ void Game::GetPlayerBet(int _playerindex)
 
 
 
-void Game::DealCards(int _numbofcards, Player _player)
+void Game::DealCards(int _numbofcards, int _playerindex) /// Move to deck options?
 {
     for (int i = 0; i < _numbofcards; ++i)
     {
-        _player.Hand.push_back(GameDeck.back());
+        cout << "Cards dealt to player" << i << endl;
+
+        players[_playerindex].Hand[players[_playerindex].numbcards] = GameDeck.back();
+        players[_playerindex].numbcards++;
+
         GameDeck.pop_back();
     }
 
@@ -159,27 +174,34 @@ void Game::DealCards(int _numbofcards, Player _player)
 
 void Game::DealToAll(int _numbofcards)
 {
-    for (int j = 0; j < players.size(); ++j)
+    cout << "Cards dealt to all." << endl;
+
+    for (int j = 0; j < players.size() && players[j].isoutofround == false; ++j)
         for (int i = 0; i < _numbofcards; ++i)
     {
-        players[j].Hand.push_back(GameDeck.back());
+        players[j].Hand[players[j].numbcards] = GameDeck.back();
+        players[j].numbcards++;
         GameDeck.pop_back();
     }
-
 }//
 
 
-int Game::GetHandTotal(std::vector<Card> _hand) const
+int Game::GetHandTotal(int _playerindex) const
 {
     int total = 0;
     bool containsAce = false;
 
-    for (int i = 0; i < _hand.size(); ++i)
+    for (int i = 0; i < players[_playerindex].numbcards; ++i)
     {
-        if (_hand[i].GetRank() == Ace)
-        { containsAce = true; }
-
-        total += _hand[1].GetRank();
+        if (players[_playerindex].Hand[i].GetRank() == Ace)
+        {
+            containsAce = true;
+            total += 11;
+        }
+        else if (players[_playerindex].Hand[i].GetRank() >= Jack)
+        { total += 10; }
+        else
+        { total += players[_playerindex].Hand[i].GetRank(); }
     }
 
     if (total > 21 && containsAce)
@@ -187,15 +209,46 @@ int Game::GetHandTotal(std::vector<Card> _hand) const
         total -= 10; // drop ace value down to 1 instead of 11.
     }
 
+    cout << "Hand Total is: " << total << endl << endl;
+
     return total;
 }//
 
 
-void Game::Dealer() ///-------------------------- maybe don't need if nothing more to go here
+void Game::PlayerChoice(int _playerindex)
 {
-    if (GetHandTotal(players[0].Hand) < 17)
-    {
-        DealCards(1, players[0]);
-    }
+  // dif case for is dealer.
+  if (_playerindex == 0)
+  {
+      if (players[0].handtotal >= 17)
+      { players[0].isstanding = true; }
+      else
+      { DealCards(1, 0); }
+  }
+  else
+  {
+      int input = 0;
+
+      do
+      {
+          cout << "Player " << _playerindex << ", what will you do?" << endl
+               << "1) Stand, 2) Draw" << endl;
+
+          std::cin >> input;
+
+
+      }while (std::cin.fail()
+            || input < 1
+            || input > 2);
+
+
+      // Handle choice
+      if (input == 1)
+      { players[_playerindex].isstanding = true; }
+      else
+      { DealCards(1, _playerindex); }
+
+  }// outer else block
 
 }//
+

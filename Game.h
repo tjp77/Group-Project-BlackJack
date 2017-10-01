@@ -8,9 +8,12 @@ struct Player
     int ID;
     int chips = 1000;
     int betamount;
+    int numbcards = 0;
+    int handtotal = 0; // call func after draws, to recalculate. store in here so don't need to calculate mult times.
     bool isstanding = false;
+    bool isoutofround = false;
 
-    std::vector<Card> Hand;
+    Card Hand[10];
 };
 
 class Game  /// Break up more somehow, game getting long
@@ -31,20 +34,20 @@ class Game  /// Break up more somehow, game getting long
     void SetupPlayer();
     void GetPlayerBet(int _playerindex);
 
-    void DealCards(int _numbofcards, Player _player);
+    void DealCards(int _numbofcards, int _playerindex);
     void DealToAll(int _numbofcards);
 
-    int GetHandTotal(std::vector<Card> _hand) const;
+    int GetHandTotal(int _playerindex) const;
 
-    void Dealer();
+    void PlayerChoice(int _playerindex);
 
     public:
 
-    Game (int _numbplayers); /// I use _ in parameter/argument names to distinguish
-                                                                  /// them easily in long functions.
+    Game (int _numbplayers);
+
     void Play();
 
-    int winnerindex; /// keeps track of who won the round, assuming an array of players, this being the corresponding array index.
+    int winnerindex;
     int roundnumber = 0;
 
 };

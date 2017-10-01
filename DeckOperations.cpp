@@ -22,13 +22,12 @@ void DeckBuild(vector<Card> &_deck)
         for (int r = Two; r <= Ace; ++r)
     {
         _deck[i++] = Card((Suit)s, (Rank)r);
-        ++i;
     }
 
 }//
 
 
-void PrintDeck(vector<Card> const _deck, bool _isdealer)
+void PrintDeck(Card const _deck[], int _numbcards, bool _isdealer)
 {
     int i = 0;
 
@@ -36,7 +35,7 @@ void PrintDeck(vector<Card> const _deck, bool _isdealer)
     if (_isdealer)
     { ++i; }
 
-    for (; i < _deck.size(); ++i)  /// Depending on how we want to print out cards either add a space or new line after
+    for (; i < _numbcards; ++i)  /// Depending on how we want to print out cards either add a space or new line after
     { _deck[i].PrintCardName(); }
 
 }//
