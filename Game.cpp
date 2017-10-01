@@ -68,7 +68,7 @@ void Game::Play()
                     players[i].isoutofround = true;
                 }
                 else
-                { PlayerChoice(i); }
+                { PlayerChoice(i); } ///-----------handle payout for blackjack
             }
         }
 
