@@ -42,8 +42,7 @@ class Game  /// Break up more somehow, game getting long
 
     void PlayerChoice(int _playerindex);
 
-    // Return # corresponding to index of winning player.
-    int CompareCards();
+    int DeterminePayout();
 
     public:
 

@@ -34,8 +34,7 @@ void Game::Play()
 
     while (!GameOver)
     {
-        ++roundnumber;    /// at end of each round reset things like player is out of round, hand's, numbcards, etc.
-        winnerindex = 0;
+        ++roundnumber;
         standingplayers = 0;
 
         cout << "\nRound Start " << roundnumber << endl;
@@ -51,15 +50,16 @@ void Game::Play()
             PrintDeck(players[i].Hand, players[i].numbcards, !players[i].ID);
 
             players[i].handtotal = GetHandTotal(i);
-            cout << "Hand Total is: " << players[i].handtotal << endl << endl;
+
+            if (i != 0)
+            { cout << "Hand Total is: " << players[i].handtotal << endl << endl; }
         }
 
-        /// ----------- If someone other then me actually works on this, remove this line.
 
         // Players draw or stand until all standing or bust
-        while (standingplayers < players.size())
+        while (standingplayers < players.size() && !players[0].isstanding && !players[0].isoutofround)
         {
-            for (int i = 0; i < players.size() && players[i].isoutofround == false && players[i].isstanding == false; ++i)
+            for (int i = 0; i < players.size() && players[i].isoutofround == false && players[i].isstanding == false && !players[0].isstanding; ++i)
             {
                 if (players[i].handtotal  > 21)
                 {
@@ -67,7 +67,15 @@ void Game::Play()
                     cout << "BUST!" << endl;
                 }
                 else
-                { PlayerChoice(i); }
+                {
+                    PlayerChoice(i);
+
+                    if (players[i].handtotal  > 21)
+                    {
+                        players[i].isoutofround = true;
+                        cout << "BUST!" << endl;
+                    }
+                }
             }
         }
 
@@ -75,23 +83,10 @@ void Game::Play()
         // need this whole part in loop case people want to keep drawing, end when all have chose to stand.
         // bring in code to determine highest from war
 
-        CompareCards();
-
-        if (winnerindex != 0)
-        {
-            // payout say who won
-            cout << "Player " << players[winnerindex].ID << " wins the round!" << endl
-                 << "Chips won: " << (players[winnerindex].betamount * 2) << endl;
-        }
-        else
-        { cout << "Dealer wins!" << endl; }
-
+        DeterminePayout();
 
         // Payout.
-        if (players[winnerindex].handtotal == 21)
-        { players[winnerindex].chips += (players[winnerindex].betamount * 3); }
-        else
-        { players[winnerindex].chips += (players[winnerindex].betamount * 2); }
+
 
 
         cout << "\nRound end\n";  /// ----- Bellow here can be moved out.
@@ -119,8 +114,6 @@ void Game::Play()
         else
         {
             standingplayers = 0;
-            winnerindex = 0;
-
             maxbet *= 2;
 
             for (int i = 0; i < players.size(); ++i)
@@ -209,9 +202,6 @@ int Game::GetHandTotal(int _playerindex) const
     bool containsAce = false;
     int i = 0;
 
-    if (_playerindex == 0)
-    { ++i; }
-
     for (; i < players[_playerindex].numbcards; ++i)
     {
         if (players[_playerindex].Hand[i].GetRank() == Ace)
@@ -251,7 +241,6 @@ void Game::PlayerChoice(int _playerindex)
           PrintDeck(players[0].Hand, players[0].numbcards, true);
 
           players[0].handtotal = GetHandTotal(0);
-          cout << "Hand Total is: " << players[0].handtotal << endl << endl;
       }
   }
   else
@@ -275,7 +264,7 @@ void Game::PlayerChoice(int _playerindex)
       if (input == 1)
       {
           players[_playerindex].isstanding = true;
-          standingplayers++;
+          ++standingplayers;
 
           cout << "Player " << players[_playerindex].ID << " stands." << endl;
       }
@@ -295,16 +284,37 @@ void Game::PlayerChoice(int _playerindex)
 }//
 
 
-// Return # corresponding to index of winning player.
-int Game::CompareCards()
+int Game::DeterminePayout()
 {
-    int highesthandtotal = 0;
-
-    for (int i = 0; i < players.size() && players[i].isoutofround == false; ++i)
+    if (players[0].handtotal > 21)//dealer bust, all players that didn't also bust get payed.
     {
+        for (int i = 1; i < players.size() && !players[i].isoutofround; ++i)
+        {
+            players[i].chips += players[i].betamount * 2;
 
+            if (players[i].handtotal == 21)
+            { players[i].chips += players[i].betamount; }
+
+            cout << "Player " << players[i].ID << " won. New chips total: " << players[i].chips << endl;
+        }
+    }
+    else // Only pay players that beat the dealer.
+    {
+        for (int i = 1; i < players.size() && !players[i].isoutofround; ++i)
+        {
+            if (players[i].handtotal > players[0].handtotal)
+            {
+                players[i].chips += players[i].betamount * 2;
+
+                if (players[i].handtotal == 21)
+                { players[i].chips += players[i].betamount; }
+
+                cout << "Player " << players[i].ID << " won. New chips total: " << players[i].chips << endl;
+            }
+        }
     }
 
 }//
+
 
 
