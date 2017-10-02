@@ -6,7 +6,8 @@
 
 Organize and clean up code more.
 
-continue trying to get other 'group' members to at least do so much as accept github contributor invites.
+continue trying to get other 'group' members to at least do, past the initial planning day, so much as accept github contributor invites.
+
 
 
 # Group-Project-BlackJack, outline by Brian
