@@ -6,7 +6,7 @@
 
 * continue trying to get other group members to at least do, past the initial planning day and outline bellow, even so much as accept github contributor invites. 
 
-* Organize and clean up code. Separate more, so stuff that could be reuseable for other cards games is easy to pull put and make use off.
+* Organize and clean up code. Separate more, so stuff that could be reuseable for other card games is easy to pull out and make use of.
 
 
 
