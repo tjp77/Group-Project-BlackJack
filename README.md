@@ -4,7 +4,7 @@
 * 'blackjack' 21 and non blackjack 21?
 "If both the dealer and player have a non-blackjack 21, it is considered a push. You neither win nor lose.You keep your original bet."
 
-* continue trying to get other group members to at least do, past the initial planning day and outline below, even so much as accept github contributor invites. 
+* continue trying to get other group members to at least do, past the initial planning day and outline below, even so much as accept github contributor invites, let alone write a line of code. 
 
 * Organize and clean up code. Separate more, so stuff that could be reuseable for other card games is easy to pull out and make use of.
 
@@ -30,7 +30,7 @@ start with 1000 chips
   
   if win, increase to 1000
   
-    if lose at any time, go back to 100 chip cap
+  if lose at any time, go back to 100 chip cap
     
 bet before you recieve hand
 
