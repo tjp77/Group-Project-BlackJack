@@ -6,6 +6,8 @@
 
 Organize and clean up code more.
 
+Separate more, so stuff that could be reuseable for other cards games is easy to pull put and make use off.
+
 continue trying to get other group members to at least do, past the initial planning day, so much as accept github contributor invites.
 
 
