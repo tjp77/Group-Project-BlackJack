@@ -4,10 +4,11 @@
 * 'blackjack' 21 and non blackjack 21?
 "If both the dealer and player have a non-blackjack 21, it is considered a push. You neither win nor lose.You keep your original bet."
 
-* continue trying to get other group members to at least do, past the initial planning day and outline below, even so much as accept github contributor invites. 
-
 * Organize and clean up code. Separate more, so stuff that could be reuseable for other card games is easy to pull out and make use of.
 
+* ~~continue trying to get other group members to at least do, past the initial planning day and outline below, even so much as accept github contributor invites. 
+
+* continue trying to get other group members to acually contribute code. 
 
  
 
