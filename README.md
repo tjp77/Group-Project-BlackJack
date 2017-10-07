@@ -10,7 +10,7 @@
 
 * continue trying to get other group members to acually contribute code. 
 
-* Learn how to do strike through for text becuase the github page says two ~~ around text should do it but it's not.
+* Firgure out what's up with strike through for text becuase the github page says two ~~ around text should do it but it's not in the posted thing, despite showing that way in the editor.
  
 
 
