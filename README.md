@@ -6,13 +6,6 @@
 
 * Organize and clean up code. Separate more, so stuff that could be reuseable for other card games is easy to pull out and make use of.
 
-* ~~continue trying to get other group members to at least do, past the initial planning day and outline below, even so much as accept github contributor invites. ~~
-
-* continue trying to get other group members to acually contribute code. 
-
-* Firgure out what's up with strike through for text becuase the github page says two ~~ around text should do it but it's not in the posted thing, despite showing that way in the editor.
- 
-
 
 # Group-Project-BlackJack, outline by Brian
 
