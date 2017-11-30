@@ -57,9 +57,14 @@ void Game::Play()
 
 
         // Players draw or stand until all standing or bust
-        while (standingplayers < players.size() && !players[0].isstanding && !players[0].isoutofround)
+        while (standingplayers < players.size() 
+            && !players[0].isstanding 
+            && !players[0].isoutofround)
         {
-            for (int i = 0; i < players.size() && players[i].isoutofround == false && players[i].isstanding == false && !players[0].isstanding; ++i)
+            for (int i = 0; i < players.size() 
+              && players[i].isoutofround == false 
+              && players[i].isstanding == false 
+              && !players[0].isstanding; ++i)
             {
                 if (players[i].handtotal  > 21)
                 {
@@ -98,10 +103,7 @@ void Game::Play()
             std::cin >> input;
 
             if (std::cin.fail()
-            || !(input == 'y'
-              || input == 'Y'
-              || input == 'n'
-              || input == 'N'))
+             || !(input == 'y' || input == 'Y' || input == 'n' || input == 'N'))
             { --i; }
 
             if (input == 'n' || input == 'N')
@@ -136,9 +138,7 @@ void Game::Play()
 void Game::SetupPlayer()  /// Add to/remove
 {
     for (int i = 0; i < numbplayers; ++i)
-    {
-        players[i].ID = i;
-    }
+    { players[i].ID = i; }
 }//
 
 
